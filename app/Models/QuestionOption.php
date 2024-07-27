@@ -12,7 +12,7 @@ class QuestionOption extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'question_id', 'option', 'score'
+        'question_id', 'option_text', 'score'
     ];
 
     public function question(): BelongsTo
