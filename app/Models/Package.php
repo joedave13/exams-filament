@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Package extends Model
@@ -19,8 +20,8 @@ class Package extends Model
         'is_active' => 'boolean'
     ];
 
-    public function questions(): BelongsToMany
+    public function packageQuestions(): HasMany
     {
-        return $this->belongsToMany(Question::class);
+        return $this->hasMany(PackageQuestion::class);
     }
 }

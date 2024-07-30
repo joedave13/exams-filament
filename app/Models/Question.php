@@ -20,9 +20,4 @@ class Question extends Model
     {
         return $this->hasMany(QuestionOption::class);
     }
-
-    public function packages(): BelongsToMany
-    {
-        return $this->belongsToMany(Package::class);
-    }
 }
