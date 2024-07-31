@@ -117,6 +117,11 @@ class PackageResource extends Resource
                     ActionGroup::make([
                         Tables\Actions\ViewAction::make(),
                         Tables\Actions\EditAction::make(),
+                        Tables\Actions\Action::make('Take The Test')
+                            ->url(fn (Package $record): string => route('do-tryout.index', $record))
+                            ->openUrlInNewTab()
+                            ->icon('heroicon-m-document-text')
+                            ->color('success')
                     ])
                         ->dropdown(false),
                     Tables\Actions\DeleteAction::make(),
