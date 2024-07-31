@@ -5,7 +5,11 @@
             <div class="col-md-8">
                 <div id="question-container">
                     <div class="card question-card">
-                        <div class="card-body">
+                        <div class="card-body pt-0">
+                            <div class="mb-3 countdown-timer text-success" id="countdown">
+                                Time left : <span id="time">00:00:00</span>
+                            </div>
+
                             <h5 class="card-title">Question No. 1</h5>
 
                             <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis,
@@ -61,4 +65,33 @@
             {{-- End Question Navigation --}}
         </div>
     </div>
+
+    <script>
+        function startCountdown(duration, display) {
+            let timer = duration,
+                minutes, seconds;
+
+            setInterval(() => {
+                hours = parseInt(timer / 3600, 10);
+                minutes = parseInt((timer % 3600) / 60, 10);
+                seconds = parseInt(timer % 60, 10);
+
+                hours = hours < 10 ? "0" + hours : hours;
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                display.textContent = `${hours}:${minutes}:${seconds}`;
+
+                if (--timer < 0) {
+                    timer = 0;
+                }
+            }, 1000);
+        }
+
+        window.onload = function() {
+            const duration = 5 * 60;
+            const display = document.querySelector('#time');
+            startCountdown(duration, display);
+        }
+    </script>
 </div>

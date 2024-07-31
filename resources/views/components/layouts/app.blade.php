@@ -29,9 +29,9 @@
         }
 
         .countdown-timer {
-            text-align: center;
-            font-size: 1.5em;
+            font-size: 1.2em;
             margin-top: 20px;
+            font-weight: bold;
         }
     </style>
 </head>
