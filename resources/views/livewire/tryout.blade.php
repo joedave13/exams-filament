@@ -1,6 +1,8 @@
 <div>
     <div class="container mt-4">
         <div class="row">
+            <h4>{{ $package->name }}</h4>
+
             {{-- Question Section --}}
             <div class="col-md-8">
                 <div id="question-container">
@@ -10,30 +12,14 @@
                                 Time left : <span id="time">00:00:00</span>
                             </div>
 
-                            <h5 class="card-title">Question No. 1</h5>
+                            <p class="card-text">{!! $currentQuestion->question->question !!}</p>
 
-                            <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis,
-                                magni?</p>
-
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="question" value="0">
-                                <label class="form-check-label">Lorem</label>
-                            </div>
-
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="question" value="1">
-                                <label class="form-check-label">Ipsum</label>
-                            </div>
-
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="question" value="2">
-                                <label class="form-check-label">Dolor</label>
-                            </div>
-
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="question" value="3">
-                                <label class="form-check-label">Sit</label>
-                            </div>
+                            @foreach ($currentQuestion->question->questionOptions as $item)
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="question" value="0">
+                                    <label class="form-check-label">{!! $item->option_text !!}</label>
+                                </div>
+                            @endforeach
                         </div>
                     </div>
                 </div>
@@ -47,11 +33,10 @@
                         <h5 class="card-title">Navigation</h5>
 
                         <div class="btn-group-flex" role="group">
-                            <button type="button" class="btn btn-outline-primary">1</button>
-                            <button type="button" class="btn btn-outline-primary">2</button>
-                            <button type="button" class="btn btn-outline-primary">3</button>
-                            <button type="button" class="btn btn-outline-primary">4</button>
-                            <button type="button" class="btn btn-outline-primary">5</button>
+                            @foreach ($packageQuestions as $item)
+                                <button type="button" wire:click="navigateQuestion({{ $loop->iteration }})"
+                                    class="btn btn-outline-primary">{{ $loop->iteration }}</button>
+                            @endforeach
                         </div>
 
                         <div class="d-grid mt-3">
