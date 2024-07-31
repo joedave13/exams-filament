@@ -7,6 +7,33 @@
     <title>Exams Filament - Tryout</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <style>
+        body {
+            padding-top: 20px;
+        }
+
+        .question-card {
+            margin-bottom: 20px;
+        }
+
+        .question-navigation {
+            position: sticky;
+            top: 20px;
+        }
+
+        .btn-group-flex {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+
+        .countdown-timer {
+            text-align: center;
+            font-size: 1.5em;
+            margin-top: 20px;
+        }
+    </style>
 </head>
 
 <body>
