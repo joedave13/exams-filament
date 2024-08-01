@@ -9,6 +9,7 @@
                     <div class="card question-card">
                         <div class="card-body pt-0">
                             <div class="mb-3 countdown-timer text-success" id="countdown">
+                                {{-- Time left : <span id="time">00:00:00</span> --}}
                                 Time left : <span id="time">00:00:00</span>
                             </div>
 
@@ -52,6 +53,11 @@
     </div>
 
     <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            let timeLeft = "{{ $timeLeft }}";
+            startCountdown(timeLeft, document.querySelector('#time'));
+        });
+
         function startCountdown(duration, display) {
             let timer = duration,
                 minutes, seconds;
@@ -71,12 +77,6 @@
                     timer = 0;
                 }
             }, 1000);
-        }
-
-        window.onload = function() {
-            const duration = 5 * 60;
-            const display = document.querySelector('#time');
-            startCountdown(duration, display);
         }
     </script>
 </div>
