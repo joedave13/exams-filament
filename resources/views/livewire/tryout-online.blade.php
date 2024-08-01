@@ -12,9 +12,9 @@
                                 Time left : <span id="time">00:00:00</span>
                             </div>
 
-                            <p class="card-text">{!! $currentQuestion->question->question !!}</p>
+                            <p class="card-text">{!! $currentPackageQuestion->question->question !!}</p>
 
-                            @foreach ($currentQuestion->question->questionOptions as $item)
+                            @foreach ($currentPackageQuestion->question->questionOptions as $item)
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" name="question" value="0">
                                     <label class="form-check-label">{!! $item->option_text !!}</label>
@@ -34,7 +34,7 @@
 
                         <div class="btn-group-flex" role="group">
                             @foreach ($packageQuestions as $item)
-                                <button type="button" wire:click="navigateQuestion({{ $loop->iteration }})"
+                                <button type="button" wire:click="navigateQuestion({{ $item->id }})"
                                     class="btn btn-outline-primary">{{ $loop->iteration }}</button>
                             @endforeach
                         </div>
