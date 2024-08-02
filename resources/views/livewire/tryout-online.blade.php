@@ -17,7 +17,10 @@
 
                             @foreach ($currentPackageQuestion->question->questionOptions as $item)
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="question" value="0">
+                                    <input wire:model="selectedAnswers.{{ $item->question_id }}"
+                                        wire:click="submitAnswer({{ $item->question_id }}, {{ $item->id }})"
+                                        class="form-check-input" type="radio" value="{{ $item->id }}"
+                                        {{ $tryoutAnswers->isEmpty() || !$tryoutAnswers->contains('question_option_id', $item->id) ? '' : 'checked' }}>
                                     <label class="form-check-label">{!! $item->option_text !!}</label>
                                 </div>
                             @endforeach

@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\Package;
+use App\Models\QuestionOption;
 use App\Models\Tryout;
 use App\Models\TryoutAnswer;
 use Carbon\Carbon;
@@ -16,6 +17,8 @@ class TryoutOnline extends Component
     public $currentPackageQuestion;
     public $tryout;
     public $timeLeft;
+    public $tryoutAnswers;
+    public $selectedAnswers = [];
 
     public function mount($id)
     {
@@ -48,6 +51,12 @@ class TryoutOnline extends Component
                             ]);
                         }
                     });
+                }
+
+                $this->getTryoutAnswers();
+
+                foreach ($this->tryoutAnswers as $answer) {
+                    $this->selectedAnswers[$answer->question_id] = $answer->question_option_id;
                 }
 
                 $this->calculateTimeLeft();
@@ -86,8 +95,28 @@ class TryoutOnline extends Component
         $this->timeLeft = $currentTimeLeft < 0 ? 0 : max(0, $this->tryout->duration - $currentTimeLeft);
     }
 
+    protected function getTryoutAnswers()
+    {
+        $this->tryoutAnswers = TryoutAnswer::query()->where('tryout_id', $this->tryout->id)->get();
+    }
+
     public function submitAnswer($questionId, $questionOptionId)
     {
+        $questionOption = QuestionOption::query()->find($questionOptionId);
+        $score = $questionOption->score ?? 0;
+
+        $tryoutAnswer = TryoutAnswer::query()->where('tryout_id', $this->tryout->id)
+            ->where('question_id', $questionId)
+            ->first();
+
+        if ($tryoutAnswer) {
+            $tryoutAnswer->update([
+                'question_option_id' => $questionOption->id,
+                'score' => $score
+            ]);
+        }
+
         $this->calculateTimeLeft();
+        $this->getTryoutAnswers();
     }
 }
