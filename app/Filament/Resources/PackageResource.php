@@ -115,7 +115,8 @@ class PackageResource extends Resource
             ->actions([
                 ActionGroup::make([
                     ActionGroup::make([
-                        Tables\Actions\ViewAction::make(),
+                        Tables\Actions\ViewAction::make()
+                            ->visible(auth()->user()->hasRole('super_admin') ? true : false),
                         Tables\Actions\EditAction::make(),
                         Tables\Actions\Action::make('Take The Test')
                             ->url(fn (Package $record): string => route('do-tryout.index', $record))

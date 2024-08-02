@@ -48,6 +48,11 @@ class TryoutResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->modifyQueryUsing(function (Builder $query) {
+                $query->when(auth()->user()->hasRole('student'), function (Builder $builder) {
+                    $builder->where('user_id', auth()->id());
+                });
+            })
             ->columns([
                 Tables\Columns\TextColumn::make('user.name')
                     ->numeric()
@@ -78,6 +83,7 @@ class TryoutResource extends Resource
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
+            ->defaultSort('created_at', 'desc')
             ->filters([
                 //
             ])

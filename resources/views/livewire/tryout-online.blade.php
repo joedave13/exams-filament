@@ -78,7 +78,7 @@
 
         @if (Session::has('message'))
             <div class="alert alert-info text-center">
-                {{ Session::get('message') }} <a href="#">Get Result</a>
+                {{ Session::get('message') }} <a href="{{ url('tryouts') }}">Get Result</a>
             </div>
         @endif
     </div>
