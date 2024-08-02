@@ -8,6 +8,7 @@ use App\Models\Tryout;
 use App\Models\TryoutAnswer;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 use Livewire\Component;
 
 class TryoutOnline extends Component
@@ -118,5 +119,15 @@ class TryoutOnline extends Component
 
         $this->calculateTimeLeft();
         $this->getTryoutAnswers();
+    }
+
+    public function submitExam()
+    {
+        $this->tryout->update([
+            'finished_at' => Carbon::now('Asia/Jakarta')
+        ]);
+
+        $this->calculateTimeLeft();
+        Session::flash('message', 'Exam has been submitted successfully.');
     }
 }

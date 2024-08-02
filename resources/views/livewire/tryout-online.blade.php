@@ -19,9 +19,11 @@
                 <div id="question-container">
                     <div class="card question-card">
                         <div class="card-body pt-0">
-                            <div class="mb-3 countdown-timer text-success" id="countdown">
-                                Time left : <span id="time">00:00:00</span>
-                            </div>
+                            @if ($tryout->finished_at === null)
+                                <div class="mb-3 countdown-timer text-success" id="countdown">
+                                    Time left : <span id="time">00:00:00</span>
+                                </div>
+                            @endif
 
                             <p class="card-text">{!! $currentPackageQuestion->question->question !!}</p>
 
@@ -63,7 +65,8 @@
                         </div>
 
                         <div class="d-grid mt-3">
-                            <button type="button" class="btn btn-primary">
+                            <button type="button" wire:click="submitExam()"
+                                wire:confirm="Are you sure you want to submit this exam?" class="btn btn-primary">
                                 Submit Exam
                             </button>
                         </div>
@@ -72,6 +75,12 @@
             </div>
             {{-- End Question Navigation --}}
         </div>
+
+        @if (Session::has('message'))
+            <div class="alert alert-info text-center">
+                {{ Session::get('message') }} <a href="#">Get Result</a>
+            </div>
+        @endif
     </div>
 
     <script>
