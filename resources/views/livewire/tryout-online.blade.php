@@ -20,7 +20,6 @@
                     <div class="card question-card">
                         <div class="card-body pt-0">
                             <div class="mb-3 countdown-timer text-success" id="countdown">
-                                {{-- Time left : <span id="time">00:00:00</span> --}}
                                 Time left : <span id="time">00:00:00</span>
                             </div>
 
@@ -31,7 +30,8 @@
                                     <input wire:model="selectedAnswers.{{ $item->question_id }}"
                                         wire:click="submitAnswer({{ $item->question_id }}, {{ $item->id }})"
                                         class="form-check-input" type="radio" value="{{ $item->id }}"
-                                        {{ $tryoutAnswers->isEmpty() || !$tryoutAnswers->contains('question_option_id', $item->id) ? '' : 'checked' }}>
+                                        {{ $tryoutAnswers->isEmpty() || !$tryoutAnswers->contains('question_option_id', $item->id) ? '' : 'checked' }}
+                                        {{ $timeLeft <= 0 ? 'disabled' : '' }}>
                                     <label class="form-check-label">{!! $item->option_text !!}</label>
                                 </div>
                             @endforeach
@@ -57,7 +57,8 @@
                                 @endphp
 
                                 <button type="button" wire:click="navigateQuestion({{ $item->id }})"
-                                    class="btn {{ $isQuestionAnswered ? 'btn-primary' : 'btn-outline-primary no-hover' }} {{ $isQuestionActive ? 'active-question' : '' }}">{{ $loop->iteration }}</button>
+                                    class="btn {{ $isQuestionAnswered ? 'btn-primary' : 'btn-outline-primary no-hover' }} {{ $isQuestionActive ? 'active-question' : '' }}"
+                                    {{ $timeLeft <= 0 ? 'disabled' : '' }}>{{ $loop->iteration }}</button>
                             @endforeach
                         </div>
 
