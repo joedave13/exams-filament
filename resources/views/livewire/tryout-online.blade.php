@@ -31,7 +31,38 @@
         </div>
     </div>
 
-    <div class="md:col-span-1 bg-white shadow-md rounded-lg p-6"></div>
+    <div class="md:col-span-1 bg-white shadow-md rounded-lg p-6">
+        <h2 class="text-2xl font-bold mb-4">Navigation</h2>
+
+        @foreach ($packageQuestions as $item)
+            @php
+                $isQuestionAnswered =
+                    isset($selectedAnswers[$item->question->id]) && !is_null($selectedAnswers[$item->question->id]);
+                $isQuestionActive = $currentPackageQuestion->question->id === $item->question->id;
+            @endphp
+
+            <x-filament::button wire:click="navigateQuestion({{ $item->id }})" class="mb-2"
+                color="{{ $isQuestionActive ? 'warning' : ($isQuestionAnswered ? 'info' : 'gray') }}">
+                {{ $loop->iteration }}
+            </x-filament::button>
+        @endforeach
+
+        @if ($tryout->finished_at == null)
+            <div class="mt-6">
+                <x-filament::button class="w-full" color="success" wire:click="submitExam()"
+                    wire:confirm="Are you sure you want to submit this exam?">
+                    Submit Exam
+                </x-filament::button>
+            </div>
+        @endif
+    </div>
+
+    @if ($tryout->finished_at != null)
+        <div class="mt-6 p-4 mb-4 text-sm text-white rounded-lg bg-primary-500" role="alert">
+            <span class="font-bold">Exam has been submitted successfully.</span> <a href="{{ url('tryouts') }}">Get
+                Result</a>
+        </div>
+    @endif
 </div>
 
 <script>
