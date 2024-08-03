@@ -29,6 +29,17 @@
                 </label>
             @endforeach
         </div>
+
+        <div class="mt-6 flex justify-between">
+            <x-filament::button icon="heroicon-m-arrow-uturn-left"
+                wire:click="previousQuestion({{ $currentPackageQuestion->id }})">
+                Previous
+            </x-filament::button>
+            <x-filament::button icon="heroicon-m-arrow-uturn-right" icon-position="after"
+                wire:click="nextQuestion({{ $currentPackageQuestion->id }})">
+                Next
+            </x-filament::button>
+        </div>
     </div>
 
     <div class="md:col-span-1 bg-white shadow-md rounded-lg p-6">

@@ -78,6 +78,32 @@ class TryoutOnline extends Component
         $this->getTryoutAnswers();
     }
 
+    public function previousQuestion($packageQuestionId)
+    {
+        $previousPackageQuestion = $this->packageQuestions
+            ->where('id', '<', $packageQuestionId)
+            ->sortByDesc('id')
+            ->first();
+
+        $this->currentPackageQuestion = $previousPackageQuestion ? $previousPackageQuestion : $this->packageQuestions->where('id', $packageQuestionId)->first();
+
+        $this->calculateTimeLeft();
+        $this->getTryoutAnswers();
+    }
+
+    public function nextQuestion($packageQuestionId)
+    {
+        $nextPackageQuestion = $this->packageQuestions
+            ->where('id', '>', $packageQuestionId)
+            ->sortBy('id')
+            ->first();
+
+        $this->currentPackageQuestion = $nextPackageQuestion ? $nextPackageQuestion : $this->packageQuestions->where('id', $packageQuestionId)->first();
+
+        $this->calculateTimeLeft();
+        $this->getTryoutAnswers();
+    }
+
     protected function calculateTimeLeft()
     {
         if ($this->tryout->finished_at) {
